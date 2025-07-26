@@ -7,6 +7,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useAuth } from '../../hooks/use-auth'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 const authFormSchema = yup.object().shape({
     login: yup
         .string()
@@ -24,7 +26,7 @@ const authFormSchema = yup.object().shape({
             /^[\w#%]+$/,
             'Неверно заполнен пароль, допускаются буквы, цифры и знаки # %'
         )
-        .min(1, 'Неверно заполнен пароль. Минимум 6 символов')
+        .min(6, 'Неверно заполнен пароль. Минимум 6 символов')
         .max(30, 'Неверный пароль. Максимум 30 символов'),
 })
 
@@ -35,6 +37,7 @@ const AuthorisationContainer = ({ className }) => {
     const toRegistration = () => {
         navigate('/register')
     }
+
     const {
         register,
         handleSubmit,
@@ -45,19 +48,16 @@ const AuthorisationContainer = ({ className }) => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await fetch(
-                'http://localhost:5000/api/auth/login',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        login: data.login,
-                        password: data.password,
-                    }),
-                }
-            )
+            const response = await fetch(`${API_URL}/api/auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    login: data.login,
+                    password: data.password,
+                }),
+            })
 
             const result = await response.json()
 
@@ -66,7 +66,7 @@ const AuthorisationContainer = ({ className }) => {
                 return
             }
 
-            login(result.user) // это твой useAuth().login
+            login(result.user)
             navigate('/')
         } catch (error) {
             console.error('Ошибка авторизации:', error)
