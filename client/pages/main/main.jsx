@@ -13,7 +13,7 @@ const MainContainer = ({ className }) => {
 
     useEffect(() => {
         dispatch(fetchTrucks())
-    }, [dispatch])
+    }, [])
 
     return (
         <div className={className}>

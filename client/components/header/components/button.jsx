@@ -1,4 +1,3 @@
-// src/components/button.jsx
 import styled from 'styled-components'
 
 const ButtonContainer = ({ className, children, onClick }) => {
@@ -11,7 +10,7 @@ const ButtonContainer = ({ className, children, onClick }) => {
 
 export const Button = styled(ButtonContainer)`
     width: 200px;
-    height: 50px; // Увеличил высоту для лучшего UX
+    height: 50px;
     background-color: white;
     border-radius: 5px;
     font-size: 16px;

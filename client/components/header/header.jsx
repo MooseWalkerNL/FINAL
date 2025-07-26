@@ -1,4 +1,3 @@
-// src/components/header.jsx
 import { Logo } from './components/logo'
 import styled from 'styled-components'
 import { Button } from './components/button'
@@ -9,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 export const HeaderContainer = ({ className }) => {
     const { user, logout } = useAuth()
     const navigate = useNavigate()
-    // Получаем cartItems из Redux store
+
     const cartItems = useSelector((state) => state.cart.items || [])
 
     const handleAuthClick = () => {

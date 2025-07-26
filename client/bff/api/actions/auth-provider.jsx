@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { AuthContext, authInitialState, authActions } from './auth-context'
 
-// 📌 Импорт функции, отправляющей POST-запрос на регистрацию
+
 import { registerUser } from './register-user'
 
 export const AuthProvider = ({ children }) => {
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
     const register = async (login, password) => {
         try {
             const data = await registerUser(login, password)
-            login(data) // сразу логиним после регистрации
+            login(data) 
         } catch (error) {
             console.error('Ошибка регистрации:', error.message)
         }

@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const Truck = require('../models/Truck')
 
-// Получить все грузовики
 router.get('/', async (req, res) => {
     try {
         const trucks = await Truck.find()
@@ -12,7 +11,6 @@ router.get('/', async (req, res) => {
     }
 })
 
-// Добавить грузовик
 router.post('/', async (req, res) => {
     const { name, type, price, description, image } = req.body
 

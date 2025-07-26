@@ -1,4 +1,4 @@
-# Этап 1: сборка React-приложения
+
 FROM node:18 AS builder
 
 WORKDIR /app
@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm run build
 
-# Этап 2: деплой статики в nginx
+
 FROM nginx:alpine
 
 COPY --from=builder /app/dist /usr/share/nginx/html
