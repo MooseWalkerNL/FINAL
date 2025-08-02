@@ -10,6 +10,10 @@ export const fetchTrucks = () => async (dispatch) => {
     try {
         const response = await fetch(`${API_URL}/api/trucks`)
 
+        if (!response.ok) {
+            throw new Error(`Ошибка сервера: ${response.statusText}`)
+        }
+
         const data = await response.json()
         dispatch({ type: FETCH_TRUCKS_SUCCESS, payload: data })
     } catch (error) {

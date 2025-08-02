@@ -5,6 +5,10 @@ import { Header } from './components/header/header'
 import { Footer } from './components/footer/footer'
 import { Main } from './pages/main/main'
 import styled from 'styled-components'
+import EditTruck from './pages/edit-truck'
+import PrivateRoute from './pages/private-route'
+import Error403 from './pages/error403'
+import { NotFound } from './pages/not-found/error404'
 import { Authorisation } from './pages/authorisation'
 import { Register } from './pages/registration/registration'
 import { AuthProvider } from './bff/api/actions/auth-provider'
@@ -39,7 +43,18 @@ export const App = () => {
                                 element={<TruckDetails />}
                             />
                             <Route path="/cart" element={<Cart />} />
-                            <Route path="*" element={<div>Ошибка</div>} />
+                            <Route
+                                path="/edit/:id"
+                                element={
+                                    <PrivateRoute
+                                        allowedRoles={['admin', 'moderator']}
+                                    >
+                                        <EditTruck />
+                                    </PrivateRoute>
+                                }
+                            />
+                            <Route path="/403" element={<Error403 />} />
+                            <Route path="*" element={<NotFound />} />
                         </Routes>
                     </Content>
                     <Footer />

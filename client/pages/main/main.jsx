@@ -5,15 +5,30 @@ import { useDispatch } from 'react-redux'
 import { fetchTrucks } from '../../bff/api/actions/fetch-trucks'
 import { H2 } from '../../components/H2'
 import { TRUCK_TYPES } from '../../constants/truck-types'
+import { Loader } from '../../components/loader/loader'
+import { useSelector } from 'react-redux'
 
 const MainContainer = ({ className }) => {
     const dispatch = useDispatch()
     const [activeType, setActiveType] = useState('all')
     const [searchQuery, setSearchQuery] = useState('')
 
+    const loading = useSelector((state) => state.trucks.loading)
+    const error = useSelector((state) => state.trucks.error)
+    const trucks = useSelector((state) => state.trucks.trucks)
+
     useEffect(() => {
         dispatch(fetchTrucks())
-    }, [])
+    }, [dispatch])
+
+    if (loading) return <Loader />
+
+    if (error)
+        return (
+            <div style={{ color: 'red', textAlign: 'center', marginTop: 20 }}>
+                Ошибка загрузки: {error}
+            </div>
+        )
 
     return (
         <div className={className}>
