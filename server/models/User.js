@@ -9,7 +9,11 @@ const cartItemSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
     login: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    cart: [cartItemSchema],
+    role: {
+        type: String,
+        enum: ['user', 'moderator', 'admin'],
+        default: 'user',
+    },
 })
 
 module.exports = mongoose.model('User', userSchema)
